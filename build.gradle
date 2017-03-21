@@ -1,0 +1,44 @@
+plugins {
+  id 'com.github.johnrengelman.shadow' version '1.2.3'
+}
+
+apply plugin: 'java'
+apply plugin: 'application'
+mainClassName = "main.FinalProject"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //compile "org.apache.hadoop:hadoop-common:2.7.2"
+    compile group: 'org.apache.hadoop', name: 'hadoop-client', version: '2.7.2'
+    //compile "org.apache.hadoop:hadoop-mapreduce-client-jobclient:2.7.2"
+    compile group: 'nz.ac.waikato.cms.weka', name: 'weka-stable', version: '3.8.0'
+    // https://mvnrepository.com/artifact/nz.ac.waikato.cms.weka/distributedWekaBase
+   compile group: 'nz.ac.waikato.cms.weka', name: 'distributedWekaBase', version: '1.0.15' 
+
+//    compile group: 'org.scala-lang', name: 'scala-library', version: '2.11.1' 
+
+//    compile group: 'com.typesafe.zinc', name: 'zinc', version: '0.3.9'
+
+}
+
+sourceSets {
+    main {  
+        java {
+            srcDir './'
+        }
+    }
+}
+
+jar {
+    manifest {
+        attributes(
+            'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+            'Main-Class': 'main.FinalProject'
+        )
+    }
+}
+
+
